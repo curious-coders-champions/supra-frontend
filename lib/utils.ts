@@ -1,3 +1,4 @@
+import { SUPRA_CLIENT_RPC } from "@/config";
 import {
     TransactionOptions,
     TransactionPayload,
@@ -10,6 +11,10 @@ import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
+}
+
+export async function getSupraClient() {
+    return await SupraClient.init(SUPRA_CLIENT_RPC);
 }
 
 export const validatePayload = (payload: TransactionPayload): void => {
