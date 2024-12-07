@@ -1,6 +1,6 @@
 "use client";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
 const getProvider = () => {
@@ -61,25 +61,33 @@ export function useConnectWallet() {
 }
 
 export function useAccount() {
+    const [balance, setBalance] = useState(0);
     const { data: address, isLoading: connecting } = useQuery({
         async queryFn() {
             const provider = getProvider();
             const accounts = await provider.account();
             if (accounts?.length) {
+                const balance = await provider?.balance();
+                const formatted =
+                    balance?.balance == 0 ? 0 : balance?.balance / 100000000;
+                setBalance(formatted);
                 return accounts[0];
             }
             return null;
         },
         queryKey: ["SUPRA_CONNECT_WALLET"],
     });
+
     return {
         address,
+        balance,
         connecting,
         isConnected: address ? true : false,
     };
 }
 
 export function useDisconnect() {
+    const queryClient = useQueryClient();
     const {
         mutate: disconnect,
         isPending: disconnecting,
@@ -92,6 +100,9 @@ export function useDisconnect() {
                 throw new Error("No Provider Found");
             }
             await provider.disconnect();
+            queryClient.invalidateQueries({
+                queryKey: ["SUPRA_CONNECT_WALLET"],
+            });
         },
         onSuccess() {
             console.log("Disconnected Successfully");

@@ -9,18 +9,17 @@ import { truncate } from "@/lib/utils"
 import { CopyToClipboard } from './copy-clipboard'
 
 export default function UserProfileNav() {
-    const { address } = useAccount()
+    const { address , balance} = useAccount()
     const { disconnect, disconnecting } = useDisconnect()
-    const balance = 0;
 
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button variant="outline" className="w-full max-w-[200px] rounded-full h-14 justify-start gap-2">
+                <Button variant="outline" className="w-full max-w-[300px] rounded-full h-12 justify-start gap-2">
                     <div className="h-6 w-6 rounded-full bg-gradient-to-br from-emerald-400 to-transparent" />
                     <div className="flex flex-col items-start">
                         <span className="text-sm font-medium">{truncate(address, 4)}</span>
-                        <span className="text-xs text-muted-foreground">{balance}</span>
+                        <span className="text-xs text-muted-foreground">{balance} SUPRA</span>
                     </div>
                 </Button>
             </PopoverTrigger>
@@ -30,7 +29,7 @@ export default function UserProfileNav() {
                         <div className="h-10 w-10 rounded-full bg-gradient-to-br from-emerald-400 to-transparent" />
                         <div className="flex flex-col">
                             <span className="font-medium">{truncate(address, 5)} <CopyToClipboard text={address} /></span>
-                            <span className="text-sm text-muted-foreground">{balance}</span>
+                            <span className="text-sm text-muted-foreground">{balance} SUPRA</span>
                         </div>
                     </div>
                     <Separator />
