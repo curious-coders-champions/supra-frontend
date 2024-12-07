@@ -10,10 +10,11 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import { COINS, useFaucet } from "@/hooks/useFaucet"
 import usePrice from "@/hooks/usePrice"
-import Big from "big.js"
 import { Settings2 } from 'lucide-react'
-import { useMemo, useState } from "react"
+import { useState } from "react"
+import toast from "react-hot-toast"
 import { Currency } from "./currency-input"
 
 type SwapDirection = "buy" | "sell"
@@ -84,57 +85,14 @@ export const currencies: Currency[] = [
 export default function FaucetInterface() {
     const { data } = usePrice()
     const supraPrice = data?.usd
-    const [sellCurrency, setSellCurrency] = useState<Currency>(currencies[0]);
-    const [buyCurrency, setBuyCurrency] = useState<Currency>(currencies[1]);
-    const [sellValue, setSellValue] = useState<string>("");
-    const [buyValue, setBuyValue] = useState<string>("");
-    const buyCurrencies = useMemo(
-        () => currencies.filter((currency) => currency.id !== sellCurrency.id),
-        [sellCurrency]
-    );
-    const sellCurrencies = useMemo(
-        () => currencies.filter((currency) => currency.id !== buyCurrency.id),
-        [buyCurrency]
-    );
-
+    const [coin, setCoin] = useState<COINS>(COINS.SUPRA)
+    const [amount, setAmount] = useState<string>("")
+    const { swap, isPending } = useFaucet()
     const handleFromAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (supraPrice && e.target.value !== "") {
-            if (buyCurrency.id === currencies[0].id) {
-                const val = Big(e.target.value).mul(Big(1).div(supraPrice)).toString()
-                setBuyValue(val)
-            } else {
-                const val = Big(e.target.value).mul(supraPrice).toString()
-                setBuyValue(val)
-            }
-        } else {
-            setBuyValue("")
-        }
-        setSellValue(e.target.value)
+        setAmount(e.target.value)
     }
 
-    const handleToAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setBuyValue(e.target.value)
-        if (supraPrice && e.target.value !== "") {
-            if (buyCurrency.id === currencies[0].id) {
-                const val = Big(e.target.value).mul(supraPrice).toString()
-                setSellValue(val)
-            } else {
-                const val = Big(e.target.value).div(supraPrice).toString()
-                setSellValue(val)
-            }
-        } else {
-            setSellValue("")
-        }
-    }
-
-    const handleSwap = () => {
-        setBuyCurrency(sellCurrency)
-        setSellCurrency(buyCurrency)
-        setSellValue("")
-        setBuyValue("")
-    }
-
-    const isSwapDisabled = !sellValue || !buyValue || sellValue === "0" || buyValue === "0"
+    const isSwapDisabled = !amount || amount === "0" || isPending
 
     return (
         <Card className="w-full max-w-md mt-6">
@@ -150,32 +108,30 @@ export default function FaucetInterface() {
                     <div className="relative">
                         <Input
                             type="number"
-                            value={sellValue}
+                            value={amount}
                             onChange={handleFromAmountChange}
                             placeholder="0.00"
                             className="text-2xl font-medium h-16 px-3 py-2 [appearance:textfield]"
                         />
                         <div className="absolute inset-y-0 right-0 flex items-center">
-                            <Select value={buyCurrency.id} onValueChange={(value) => {
-                                const currency = currencies.find((currency) => currency.id === value)
+                            <Select value={coin} onValueChange={(value) => {
+                                const currency = Object.values(COINS).find((currency) => currency === value)
                                 if (currency) {
-                                    setBuyCurrency(currency)
+                                    setCoin(currency)
                                 }
                             }}>
                                 <SelectTrigger className="h-full border-0 bg-transparent focus:ring-0">
                                     <SelectValue>
                                         <div className="flex items-center gap-2">
-                                            {buyCurrency.icon}
-                                            <span className="font-bold text-lg">{buyCurrency.name}</span>
+                                            <span className="font-bold text-lg">{coin}</span>
                                         </div>
                                     </SelectValue>
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectContent>
-                                        {sellCurrencies.map((currency, index) => <SelectItem key={index} value={currency.id}>
-                                            <div className="flex items-center gap-2">
-                                                {currency.icon}
-                                                {currency.name}
+                                        {Object.values(COINS).map((currency, index) => <SelectItem key={index} value={currency}>
+                                            <div className="flex items-center gap-2 text-xl">
+                                                {currency}
                                             </div>
                                         </SelectItem>)}
                                     </SelectContent>
@@ -183,16 +139,21 @@ export default function FaucetInterface() {
                             </Select>
                         </div>
                     </div>
-                    <div className="flex justify-between items-center px-3">
-                        <span className="text-sm text-muted-foreground">
-                            {sellValue !== "" ? buyCurrency.id === currencies[1].id ? "$" + Big(sellValue).mul(supraPrice).toFixed(4) : "$" + Big(sellValue).toFixed(4) : ""}
-                        </span>
-                    </div>
                 </div>
                 <Button
                     className="w-full h-14 text-lg font-semibold"
                     disabled={isSwapDisabled}
-                    onClick={() => {
+                    onClick={async () => {
+                        try {
+                            toast.dismiss()
+                            toast.loading('Minting...')
+                            await swap(COINS.SUPRA)
+                            toast.dismiss()
+                            toast.success('Minted!')
+                        } catch (error) {
+                            toast.dismiss()
+                            toast.error('Error minting')
+                        }
                     }}
                 >
                     Mint
