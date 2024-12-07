@@ -7,6 +7,7 @@ import { useMemo, useState } from "react";
 import CurrencyInput, { Currency } from "../currency-input";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
+import { SwapButton } from "./swap-button";
 
 const currencies: Currency[] = [
     {
@@ -112,7 +113,7 @@ export function MarketSwapTabs() {
                     value={buyValue}
                     setValue={setBuyValue}
                 />
-                <Button className="w-full mt-10">Swap</Button>
+                <SwapButton />
             </TabsContent>
         </Tabs>
     );
