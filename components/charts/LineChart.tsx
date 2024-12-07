@@ -37,7 +37,7 @@ export function LineChart() {
     return (
         <Card>
             <CardHeader>
-            <CardTitle className="font-medium text-2xl">$ {chartData && chartData[chartData?.length - 1]?.price} USD</CardTitle>
+            <CardTitle className="font-bold text-4xl">$ {chartData && chartData[chartData?.length - 1]?.price} USD</CardTitle>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig}>
