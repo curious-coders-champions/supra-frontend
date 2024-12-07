@@ -30,10 +30,7 @@ export default function MarketDetailsPage() {
         </section>
         {/* SWAP CARD*/}
         <Card className="col-span-2">
-            <CardHeader >
                 <MarketSwapTabs />
-            </CardHeader>
-            <CardContent></CardContent>
         </Card>
     </main>
 }

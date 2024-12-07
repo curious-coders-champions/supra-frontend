@@ -1,6 +1,9 @@
+'use client'
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "../ui/button"
 import { Separator } from "../ui/separator"
+import { MarketSwap } from "./market-swap"
 export function MarketSwapTabs() {
     return <Tabs defaultValue="market" className="w-[400px]">
         <TabsList className="bg-transparent">
@@ -10,7 +13,9 @@ export function MarketSwapTabs() {
             <TabsTrigger value="limit">Limit</TabsTrigger>
         </TabsList>
         <Separator className="w-[300px]" />
-        <TabsContent value="market">Market.</TabsContent>
+        <TabsContent value="market">
+            <MarketSwap />
+        .</TabsContent>
         <TabsContent value="limit">Limit</TabsContent>
     </Tabs>
 }

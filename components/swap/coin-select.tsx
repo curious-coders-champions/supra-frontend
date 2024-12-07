@@ -1,7 +1,5 @@
-import { DialogContent } from "@radix-ui/react-dialog";
-import { Dialog, DialogHeader, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogHeader, DialogTrigger, DialogContent } from "../ui/dialog";
 import { Coin } from "../market-details/market-header";
-import { SetStateAction } from "react";
 import { Button } from "../ui/button";
 import { SearchBox } from "../search-box";
 import {TOKENS} from "@/data/tokens"
@@ -15,9 +13,10 @@ export type TokenPair =  {
 export function SelectCoin({pair, setTokenParid}: {pair: TokenPair, setTokenParid: (tokenxId: number, tokenYId: number) => void}) {
     return <Dialog>
         <DialogTrigger asChild>
-        <Button variant="secondary" size={"lg"} className="rounded-full">
-          <div className="w-10 h-10"></div> 
+        <Button variant="secondary" size={"sm"} className="rounded-full w-max">
+          <div className="w-5 h-5 bg-primary rounded-full"></div> 
           {pair.coinX.name}
+          APTOS
         </Button> 
         </DialogTrigger>
         <DialogContent>
