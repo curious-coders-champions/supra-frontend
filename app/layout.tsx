@@ -3,6 +3,8 @@ import { AppProviders } from "@/providers/app-providers";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Navbar from "@/components/navbar";
+import { Separator } from "@/components/ui/separator";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -28,9 +30,11 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={cn(`${geistSans.variable} ${geistMono.variable} antialiased`, 'bg-secondary ')}
+                className={cn(`${geistSans.variable} ${geistMono.variable} antialiased`, 'bg-muted flex flex-col gap-y-4')}
             >
                 <AppProviders>
+                <Navbar />
+                <Separator />
                     {children}
                 </AppProviders>
             </body>

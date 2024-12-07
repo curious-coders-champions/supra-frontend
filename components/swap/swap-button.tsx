@@ -70,7 +70,7 @@ export function SwapButton() {
     <Button 
       onClick={() => transactionMutation.mutate()}
       disabled={transactionMutation.isPending || !address}
-      className="w-full mt-10"
+      className="w-full mt-10 h-14"
     >
       {transactionMutation.isPending ? 'Processing...' : 'Swap'}
     </Button>

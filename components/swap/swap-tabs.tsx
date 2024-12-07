@@ -8,6 +8,7 @@ import CurrencyInput, { Currency } from "../currency-input";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { SwapButton } from "./swap-button";
+import { Card, CardFooter } from "../ui/card";
 
 const currencies: Currency[] = [
     {
@@ -58,7 +59,27 @@ const currencies: Currency[] = [
 ];
 
 export function MarketSwapTabs() {
-    const [sellCurrency, setSellCurrency] = useState<Currency>(currencies[1]);
+   
+    return (
+        <Tabs defaultValue="market" className="w-[400px]">
+            <TabsList className="bg-transparent">
+                <TabsTrigger value="market" asChild>
+                    <Button size={"sm"} variant={"link"}>
+                        Market
+                    </Button>
+                </TabsTrigger>
+            </TabsList>
+            <Separator className="w-[300px]" />
+            <TabsContent value="market"> 
+                <SwapCard /> 
+            </TabsContent>
+        </Tabs>
+    );
+}
+
+
+export function SwapCard() {
+ const [sellCurrency, setSellCurrency] = useState<Currency>(currencies[1]);
     const [buyCurrency, setBuyCurrency] = useState<Currency>(currencies[0]);
     const [sellValue, setSellValue] = useState<string>("");
     const [buyValue, setBuyValue] = useState<string>("");
@@ -72,17 +93,7 @@ export function MarketSwapTabs() {
         [buyCurrency]
     );
 
-    return (
-        <Tabs defaultValue="market" className="w-[400px]">
-            <TabsList className="bg-transparent">
-                <TabsTrigger value="market" asChild>
-                    <Button size={"sm"} variant={"link"}>
-                        Market
-                    </Button>
-                </TabsTrigger>
-            </TabsList>
-            <Separator className="w-[300px]" />
-            <TabsContent value="market" className="w-[320px] ml-5">
+   return <Card className="w-full">
                 <CurrencyInput
                     title="Sell"
                     currencies={sellCurrencies}
@@ -113,8 +124,9 @@ export function MarketSwapTabs() {
                     value={buyValue}
                     setValue={setBuyValue}
                 />
+                <CardFooter>
+
                 <SwapButton />
-            </TabsContent>
-        </Tabs>
-    );
+                </CardFooter>
+                </Card> 
 }
