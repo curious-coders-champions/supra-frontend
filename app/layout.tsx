@@ -18,8 +18,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-    title: "Supra Swap",
-    description: "Supra swap",
+    title: "SupraFi",
+    description: "SupraFi",
 };
 
 export default function RootLayout({
@@ -33,8 +33,8 @@ export default function RootLayout({
                 className={cn(`${geistSans.variable} ${geistMono.variable} antialiased`, 'bg-muted flex flex-col gap-y-4')}
             >
                 <AppProviders>
-                <Navbar />
-                <Separator />
+                    <Navbar />
+                    <Separator />
                     {children}
                 </AppProviders>
             </body>
