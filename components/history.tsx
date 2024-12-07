@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Badge } from "./ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger, DialogDescription } from "./ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
@@ -15,7 +14,7 @@ export function HistoryModal() {
     </DialogTrigger>
         <DialogContent className="">
             <DialogHeader>
-                <DialogTitle>Transaction History</DialogTitle>
+                <DialogTitle className="text-xl">Transaction History</DialogTitle>
                 <DialogDescription className=" ">
                     Your recent transactions will appear here
                 </DialogDescription>
@@ -28,7 +27,7 @@ export function HistoryModal() {
                         className="flex items-center justify-between p-3    rounded-lg"
                     >
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-blue-500/20 rounded-full">
+                            <div className="p-2 bg-primary/20 rounded-full">
                                 <ArrowUpDown className="h-4 w-4 text-blue-400" />
                             </div>
                             <div>
