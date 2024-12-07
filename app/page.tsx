@@ -16,7 +16,7 @@ export default function Home() {
             </h1>
         </div>
         <div className="max-w-md w-full">
-            <MintInterface />
+        <MintInterface />
         </div>
     </main>
 }
