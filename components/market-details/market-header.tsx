@@ -5,7 +5,7 @@ import { useState } from "react"
 import { Button } from "../ui/button"
 import { CopyToClipboard } from "../copy-clipboard"
 
-type Coin = {
+export type Coin = {
     name: string
     symbol: string
     chain: string
