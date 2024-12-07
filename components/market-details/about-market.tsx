@@ -20,7 +20,7 @@ type AboutMarketProps = {
 export function AboutMarket(props: AboutMarketProps) {
     return <Card>
         <CardHeader>
-            <CardTitle>About {props.name}</CardTitle>
+            <CardTitle className="font-medium text-2xl">About SUPRA</CardTitle>
         </CardHeader>
         <CardContent>
             <Description description={props.description} />

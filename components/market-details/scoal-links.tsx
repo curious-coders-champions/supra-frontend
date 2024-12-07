@@ -37,7 +37,7 @@ export default function SocialLinks() {
   return (
     <div className="w-full mx-auto">
       <div className="grid grid-cols-3">
-        <section>
+        <section className="flex flex-col gap-y-2">
           <h2 className="text-xs font-semibold">Official links</h2>
           <div className="flex flex-wrap gap-4">
             <SocialLink href="https://analytics.example.com" icon={<BarChart3 />} label="Analytics" />
@@ -48,7 +48,7 @@ export default function SocialLinks() {
           </div>
         </section>
 
-        <section>
+        <section className="flex flex-col gap-y-2">
           <h2 className="text-xs font-semibold ">Trackers</h2>
           <div className="flex flex-wrap gap-4">
             <SocialLink href="https://tracker1.example.com" icon={<CircleDot />} label="Tracker 1" />
@@ -56,7 +56,7 @@ export default function SocialLinks() {
           </div>
         </section>
 
-        <section>
+        <section className="flex flex-col gap-y-2">
           <h2 className="text-xs font-semibold">Exchange</h2>
           <div className="flex flex-wrap gap-4">
             <SocialLink href="https://exchange1.example.com" icon={<Copyright />} label="Exchange 1" />

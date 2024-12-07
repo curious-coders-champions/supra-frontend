@@ -37,10 +37,7 @@ export function LineChart() {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Supra </CardTitle>
-                <CardDescription>
-                    Showing total visitors for the last 6 months
-                </CardDescription>
+            <CardTitle className="font-medium text-2xl">$ {chartData && chartData[chartData?.length - 1]?.price} USD</CardTitle>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig}>

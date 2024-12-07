@@ -3,7 +3,6 @@
 import { CardContent, Card, CardHeader, CardTitle } from "@/components/ui/card"
 import SocialLinks from "./scoal-links"
 import { ICONS } from "../icons"
-import {type Icon}  from "lucide-react"
 
 export type Coin = {
     name: string
