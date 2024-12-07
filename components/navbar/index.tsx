@@ -17,8 +17,8 @@ const Navbar = () => {
                     <h1>Supra</h1>
                 </Link>
                 {isConnected ? <div className="flex items-center gap-4">
-                    <Link href={"/swap"}>Mint</Link>
-                    <Link href={"/swap"}>Faucet</Link>
+                    <Link href={"/mint"}>Mint</Link>
+                    <Link href={"/faucet"}>Faucet</Link>
                     <HistoryModal />
                     <UserProfileNav />
                 </div> : <ConnectWalletButton />}
