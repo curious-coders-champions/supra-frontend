@@ -10,7 +10,7 @@ import { Card, CardFooter } from "../ui/card";
 import { Separator } from "../ui/separator";
 import { SwapButton } from "./swap-button";
 
-export const currencies: Currency[] = [
+const currencies: Currency[] = [
     {
         id: "usds",
         name: "USDS Coin",
