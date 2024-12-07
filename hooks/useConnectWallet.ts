@@ -3,7 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-const getProvider = () => {
+export const getProvider = () => {
     if ("starkey" in window) {
         const provider = window.starkey?.supra;
 

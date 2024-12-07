@@ -1,4 +1,5 @@
 import { ICONS } from "@/components/icons"
+import SwapInterface from "@/components/swap-interface"
 import { SwapCard } from "@/components/swap/swap-tabs"
 
 export default function Home() {
@@ -13,8 +14,8 @@ export default function Home() {
                 </div>
             </h1>
         </div>
-        <div className="max-w-4xl w-full">
-            <SwapCard />
+        <div className="max-w-md w-full">
+        <SwapInterface />
         </div>
     </main>
 }
