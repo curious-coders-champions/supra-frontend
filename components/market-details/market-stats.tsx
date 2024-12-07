@@ -3,9 +3,9 @@ import { List } from "../list";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 const marketStatsData = [
-    { label: "Market Cap", value: "1B" },
-    { label: "24 Volume", value: "100M" },
-    { label: "Circulating Supply", value: "200K" }]
+    { label: "Market Cap", value: "$ 221.76M" },
+    { label: "24 Volume", value: "$ 352.26M" },
+    { label: "Circulating Supply", value: "6.00B(6%)" }]
 
 
 
