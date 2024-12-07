@@ -1,15 +1,15 @@
 "use client"
 
-import { LogOut, Pen } from 'lucide-react'
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator"
 import { useAccount, useDisconnect } from '@/hooks/useConnectWallet'
 import { truncate } from "@/lib/utils"
+import { LogOut } from 'lucide-react'
 import { CopyToClipboard } from './copy-clipboard'
 
 export default function UserProfileNav() {
-    const { address , balance} = useAccount()
+    const { address, balance } = useAccount()
     const { disconnect, disconnecting } = useDisconnect()
 
     return (
@@ -33,7 +33,6 @@ export default function UserProfileNav() {
                         </div>
                     </div>
                     <Separator />
-
                     <Button onClick={() => disconnect()} disabled={disconnecting} variant="ghost" className="justify-start gap-2 rounded-none p-4 text-base font-normal text-red-500 hover:text-red-500">
                         <LogOut className="h-4 w-4" />
                         Disconnect Wallet

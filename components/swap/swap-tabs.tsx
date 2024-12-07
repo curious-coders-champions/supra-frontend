@@ -6,29 +6,27 @@ import Big from "big.js";
 import { useMemo, useState } from "react";
 import CurrencyInput, { Currency } from "../currency-input";
 import { Button } from "../ui/button";
+import { Card, CardFooter } from "../ui/card";
 import { Separator } from "../ui/separator";
 import { SwapButton } from "./swap-button";
-import { Card, CardFooter } from "../ui/card";
 
 export const currencies: Currency[] = [
     {
-        id: "usdc",
-        name: "USD Coin",
-        symbol: "USDC",
+        id: "usds",
+        name: "USDS Coin",
+        symbol: "USDS",
         address: "0x0000000000000000000000000000000000000000",
         icon: (
-            <svg
-                className="h-5 w-5 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-            >
-                <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
+            <svg width="224" height="224" viewBox="0 0 224 224" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clipPath="url(#clip0_3_5)">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M111.788 0C173.527 0 223.576 50.0491 223.576 111.788C223.576 173.527 173.527 223.576 111.788 223.576C50.0491 223.576 0 173.527 0 111.788C0 50.0491 50.0491 0 111.788 0Z" fill="#DD1438" />
+                    <path fillRule="evenodd" clipRule="evenodd" d="M137.331 33.0735C134.81 32.2682 132.749 33.7644 132.749 36.4109V42.9196C132.749 44.6942 134.086 46.7138 135.752 47.3245C162.509 57.1246 181.656 82.8429 181.656 112.953C181.656 143.063 162.509 168.78 135.752 178.581C133.925 179.25 132.749 181.04 132.749 182.986V189.494C132.749 192.14 134.81 193.637 137.331 192.832C171.144 182.028 195.629 150.35 195.629 112.953C195.629 75.5556 171.144 43.877 137.331 33.0735ZM90.828 36.4109C90.828 33.7644 88.7668 32.2682 86.246 33.0735C52.4321 43.877 27.947 75.5552 27.947 112.953C27.947 150.351 52.4321 182.028 86.246 192.832C88.7667 193.637 90.828 192.14 90.828 189.494V182.986C90.828 181.211 89.4905 179.191 87.8242 178.581C61.0678 168.78 41.9205 143.062 41.9205 112.953C41.9205 82.8433 61.0678 57.1246 87.8242 47.3245C89.4905 46.7138 90.828 44.6942 90.828 42.9196V36.4109ZM115.282 57.0588H108.295C106.366 57.0588 104.802 58.6225 104.802 60.5519V71.3747C90.9508 73.3439 81.9968 82.5614 81.9968 94.3864C81.9968 109.693 91.2498 115.632 110.78 118.26C124.03 120.43 127.801 123.284 127.801 130.824C127.801 138.363 121.402 143.389 112.381 143.389C100.184 143.389 96.1697 138.051 94.6893 131.143C94.3386 129.506 92.9371 128.31 91.2633 128.31H83.2944C81.287 128.31 79.7176 130.118 80.0626 132.095C82.0919 143.724 89.5598 152.255 104.802 154.323V165.353C104.802 167.283 106.366 168.847 108.295 168.847H115.282C117.211 168.847 118.775 167.283 118.775 165.353V154.318C133.204 152.026 142.422 141.981 142.422 129.567C142.422 113.234 132.484 107.75 113.293 105.124C99.1293 103.068 96.3898 99.7544 96.3898 93.1291C96.3898 86.8484 101.186 82.3917 110.439 82.3917C118.808 82.3917 123.621 85.3127 125.609 92.048C126.053 93.5513 127.398 94.6139 128.966 94.6139H136.315C138.364 94.6139 139.959 92.7306 139.522 90.7281C137.195 80.0841 130.021 73.6968 118.775 71.682V60.5519C118.775 58.6225 117.211 57.0588 115.282 57.0588Z" fill="white" />
+                </g>
+                <defs>
+                    <clipPath id="clip0_3_5">
+                        <rect width="223.576" height="223.576" fill="white" />
+                    </clipPath>
+                </defs>
             </svg>
         ),
     },
@@ -59,7 +57,7 @@ export const currencies: Currency[] = [
 ];
 
 export function MarketSwapTabs() {
-   
+
     return (
         <Tabs defaultValue="market" className="w-[400px]">
             <TabsList className="bg-transparent">
@@ -70,8 +68,8 @@ export function MarketSwapTabs() {
                 </TabsTrigger>
             </TabsList>
             <Separator className="w-[300px]" />
-            <TabsContent value="market"> 
-                <SwapCard /> 
+            <TabsContent value="market">
+                <SwapCard />
             </TabsContent>
         </Tabs>
     );
@@ -79,11 +77,12 @@ export function MarketSwapTabs() {
 
 
 export function SwapCard() {
- const [sellCurrency, setSellCurrency] = useState<Currency>(currencies[1]);
+    const [sellCurrency, setSellCurrency] = useState<Currency>(currencies[1]);
     const [buyCurrency, setBuyCurrency] = useState<Currency>(currencies[0]);
     const [sellValue, setSellValue] = useState<string>("");
     const [buyValue, setBuyValue] = useState<string>("");
-    const { data: supraPrice } = usePrice();
+    const { data } = usePrice();
+    const supraPrice = data?.usd ?? "0";
     const buyCurrencies = useMemo(
         () => currencies.filter((currency) => currency.id !== sellCurrency.id),
         [sellCurrency]
@@ -93,40 +92,40 @@ export function SwapCard() {
         [buyCurrency]
     );
 
-   return <Card className="w-full">
-                <CurrencyInput
-                    title="Sell"
-                    currencies={sellCurrencies}
-                    onClick={setSellCurrency}
-                    className="mt-5"
-                    price={supraPrice ?? "0"}
-                    value={sellValue}
-                    setValue={(val) => {
-                        setSellValue(val);
-                        if (val) {
-                            setBuyValue(
-                                Big(val)
-                                    .mul(supraPrice ?? "0")
-                                    .toFixed(2)
-                            );
-                        } else {
-                            setBuyValue("");
-                        }
-                    }}
-                />
-                <CurrencyInput
-                    title="Buy"
-                    currencies={buyCurrencies}
-                    isDisabled={true}
-                    onClick={setBuyCurrency}
-                    className="mt-5"
-                    price={supraPrice ?? "0"}
-                    value={buyValue}
-                    setValue={setBuyValue}
-                />
-                <CardFooter>
+    return <Card className="w-full">
+        <CurrencyInput
+            title="Sell"
+            currencies={sellCurrencies}
+            onClick={setSellCurrency}
+            className="mt-5"
+            price={supraPrice ?? "0"}
+            value={sellValue}
+            setValue={(val) => {
+                setSellValue(val);
+                if (val) {
+                    setBuyValue(
+                        Big(val)
+                            .mul(supraPrice ?? "0")
+                            .toFixed(2)
+                    );
+                } else {
+                    setBuyValue("");
+                }
+            }}
+        />
+        <CurrencyInput
+            title="Buy"
+            currencies={buyCurrencies}
+            isDisabled={true}
+            onClick={setBuyCurrency}
+            className="mt-5"
+            price={supraPrice ?? "0"}
+            value={buyValue}
+            setValue={setBuyValue}
+        />
+        <CardFooter>
 
-                <SwapButton />
-                </CardFooter>
-                </Card> 
+            <SwapButton />
+        </CardFooter>
+    </Card>
 }

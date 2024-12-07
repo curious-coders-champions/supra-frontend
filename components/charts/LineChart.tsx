@@ -1,7 +1,5 @@
 "use client"
 
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
-
 import {
     Card,
     CardContent,
@@ -9,6 +7,8 @@ import {
     CardHeader,
     CardTitle
 } from "@/components/ui/card"
+import { format } from "date-fns"
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 
 import {
     ChartConfig,
@@ -16,14 +16,8 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart"
-const chartData = [
-    { month: "January", desktop: 186 },
-    { month: "February", desktop: 305 },
-    { month: "March", desktop: 237 },
-    { month: "April", desktop: 73 },
-    { month: "May", desktop: 209 },
-    { month: "June", desktop: 214 },
-]
+import useChartData from "@/hooks/useChartData"
+
 
 const chartConfig = {
     desktop: {
@@ -33,6 +27,13 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function LineChart() {
+    const { data } = useChartData()
+
+    const chartData = data?.prices.map((price: [number, number]) => ({
+        date: format(new Date(price[0]), 'MMM d, yyyy'),
+        price: price[1]
+    }))
+
     return (
         <Card>
             <CardHeader>
@@ -53,18 +54,31 @@ export function LineChart() {
                     >
                         <CartesianGrid vertical={false} />
                         <XAxis
-                            dataKey="month"
+                            dataKey="date"
                             tickLine={false}
                             axisLine={false}
                             tickMargin={8}
-                            tickFormatter={(value) => value.slice(0, 3)}
+                            tickFormatter={(value) => value.split(',')[0]}
                         />
                         <ChartTooltip
                             cursor={false}
-                            content={<ChartTooltipContent indicator="line" />}
+                            content={<ChartTooltipContent
+                                indicator="line"
+                                formatter={(value, name, props) => {
+                                    const formattedDate = format(new Date(props.payload.date), 'MMM d, yyyy')
+                                    return (
+                                        <div className="space-y-1">
+                                            <div className="text-sm text-black">
+                                                Date: {formattedDate}
+                                            </div>
+                                            <div className="text-sm text-black">Price : ${value}</div>
+                                        </div>
+                                    )
+                                }}
+                            />}
                         />
                         <Area
-                            dataKey="desktop"
+                            dataKey="price"
                             type="natural"
                             fill="var(--color-desktop)"
                             fillOpacity={0.4}
