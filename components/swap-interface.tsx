@@ -16,6 +16,9 @@ import { ArrowDownUp, Settings2 } from 'lucide-react'
 import { useMemo, useState } from "react"
 import { Currency } from "./currency-input"
 
+type SwapDirection = "buy" | "sell"
+
+
 export const currencies: Currency[] = [
     {
         id: "usds",
@@ -97,8 +100,13 @@ export default function SwapInterface() {
 
     const handleFromAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (supraPrice && e.target.value !== "") {
-            const val = Big(e.target.value).mul(supraPrice).toString()
-            setBuyValue(val)
+            if (buyCurrency.id === currencies[0].id) {
+                const val = Big(e.target.value).mul(Big(1).div(supraPrice)).toString()
+                setBuyValue(val)
+            } else {
+                const val = Big(e.target.value).mul(supraPrice).toString()
+                setBuyValue(val)
+            }
         } else {
             setBuyValue("")
         }
@@ -108,8 +116,13 @@ export default function SwapInterface() {
     const handleToAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setBuyValue(e.target.value)
         if (supraPrice && e.target.value !== "") {
-            const val = Big(e.target.value).div(supraPrice).toString()
-            setSellValue(val)
+            if (buyCurrency.id === currencies[0].id) {
+                const val = Big(e.target.value).mul(supraPrice).toString()
+                setSellValue(val)
+            } else {
+                const val = Big(e.target.value).div(supraPrice).toString()
+                setSellValue(val)
+            }
         } else {
             setSellValue("")
         }
@@ -176,7 +189,7 @@ export default function SwapInterface() {
                     </div>
                     <div className="flex justify-between items-center px-3">
                         <span className="text-sm text-muted-foreground">
-                            {sellValue !== "" ? "$" + Big(sellValue).mul(supraPrice).toFixed(4) : '$0'}
+                            {sellValue !== "" ? buyCurrency.id === currencies[1].id ? "$" + Big(sellValue).mul(supraPrice).toFixed(4) : "$" + Big(sellValue).toFixed(4) : ""}
                         </span>
                     </div>
                 </div>
@@ -232,7 +245,7 @@ export default function SwapInterface() {
                     </div>
                     <div className="flex justify-between items-center px-3">
                         <span className="text-sm text-muted-foreground">
-                            {buyValue !== "" ? "$" + Big(buyValue).toFixed(4) : '$0'}
+                            {buyValue !== "" ? buyCurrency.id === currencies[0].id ? "$" + Big(buyValue).mul(supraPrice).toFixed(4) : "$" + Big(buyValue).toFixed(4) : ""}
                         </span>
                     </div>
                 </div>

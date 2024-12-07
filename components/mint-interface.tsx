@@ -5,14 +5,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import {
     Select,
+    SelectContent,
+    SelectItem,
     SelectTrigger,
-    SelectValue
+    SelectValue,
 } from "@/components/ui/select"
 import usePrice from "@/hooks/usePrice"
 import Big from "big.js"
 import { Settings2 } from 'lucide-react'
 import { useMemo, useState } from "react"
 import { Currency } from "./currency-input"
+
+type SwapDirection = "buy" | "sell"
+
 
 export const currencies: Currency[] = [
     {
@@ -80,8 +85,8 @@ export const currencies: Currency[] = [
 export default function MintInterface() {
     const { data } = usePrice()
     const supraPrice = data?.usd
-    const [sellCurrency, setSellCurrency] = useState<Currency>(currencies[1]);
-    const [buyCurrency, setBuyCurrency] = useState<Currency>(currencies[0]);
+    const [sellCurrency, setSellCurrency] = useState<Currency>(currencies[0]);
+    const [buyCurrency, setBuyCurrency] = useState<Currency>(currencies[1]);
     const [sellValue, setSellValue] = useState<string>("");
     const [buyValue, setBuyValue] = useState<string>("");
     const buyCurrencies = useMemo(
@@ -95,8 +100,13 @@ export default function MintInterface() {
 
     const handleFromAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (supraPrice && e.target.value !== "") {
-            const val = Big(e.target.value).mul(supraPrice).toString()
-            setBuyValue(val)
+            if (buyCurrency.id === currencies[0].id) {
+                const val = Big(e.target.value).mul(Big(1).div(supraPrice)).toString()
+                setBuyValue(val)
+            } else {
+                const val = Big(e.target.value).mul(supraPrice).toString()
+                setBuyValue(val)
+            }
         } else {
             setBuyValue("")
         }
@@ -106,8 +116,13 @@ export default function MintInterface() {
     const handleToAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setBuyValue(e.target.value)
         if (supraPrice && e.target.value !== "") {
-            const val = Big(e.target.value).div(supraPrice).toString()
-            setSellValue(val)
+            if (buyCurrency.id === currencies[0].id) {
+                const val = Big(e.target.value).mul(supraPrice).toString()
+                setSellValue(val)
+            } else {
+                const val = Big(e.target.value).div(supraPrice).toString()
+                setSellValue(val)
+            }
         } else {
             setSellValue("")
         }
@@ -159,12 +174,22 @@ export default function MintInterface() {
                                         </div>
                                     </SelectValue>
                                 </SelectTrigger>
+                                <SelectContent>
+                                    <SelectContent>
+                                        {sellCurrencies.map((currency, index) => <SelectItem key={index} value={currency.id}>
+                                            <div className="flex items-center gap-2">
+                                                {currency.icon}
+                                                {currency.name}
+                                            </div>
+                                        </SelectItem>)}
+                                    </SelectContent>
+                                </SelectContent>
                             </Select>
                         </div>
                     </div>
                     <div className="flex justify-between items-center px-3">
                         <span className="text-sm text-muted-foreground">
-                            {sellValue !== "" ? "$" + Big(sellValue).mul(supraPrice).toFixed(4) : '$0'}
+                            {sellValue !== "" ? buyCurrency.id === currencies[1].id ? "$" + Big(sellValue).mul(supraPrice).toFixed(4) : "$" + Big(sellValue).toFixed(4) : ""}
                         </span>
                     </div>
                 </div>
@@ -177,7 +202,6 @@ export default function MintInterface() {
                             type="number"
                             value={buyValue}
                             onChange={handleToAmountChange}
-                            disabled
                             placeholder="0.00"
                             className="text-2xl font-medium h-16 px-3 py-2 [appearance:textfield]"
                         />
@@ -196,12 +220,20 @@ export default function MintInterface() {
                                         </div>
                                     </SelectValue>
                                 </SelectTrigger>
+                                <SelectContent>
+                                    {buyCurrencies.map((currency, index) => <SelectItem key={index} value={currency.id}>
+                                        <div className="flex items-center gap-2">
+                                            {currency.icon}
+                                            {currency.name}
+                                        </div>
+                                    </SelectItem>)}
+                                </SelectContent>
                             </Select>
                         </div>
                     </div>
                     <div className="flex justify-between items-center px-3">
                         <span className="text-sm text-muted-foreground">
-                            {buyValue !== "" ? "$" + Big(buyValue).toFixed(4) : '$0'}
+                            {buyValue !== "" ? buyCurrency.id === currencies[0].id ? "$" + Big(buyValue).mul(supraPrice).toFixed(4) : "$" + Big(buyValue).toFixed(4) : ""}
                         </span>
                     </div>
                 </div>
