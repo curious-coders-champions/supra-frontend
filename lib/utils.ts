@@ -131,3 +131,15 @@ export const simulateTransaction = async (
         };
     }
 };
+
+export const truncate = (
+    str: string | null | undefined = "",
+    num: number,
+): string => {
+    if (str == null) return "";
+    const strValue = String(str);
+    if (strValue.length <= num) {
+        return strValue;
+    }
+    return strValue.slice(0, num) + "..." + strValue.slice(-num);
+};
