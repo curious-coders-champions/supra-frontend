@@ -16,12 +16,16 @@ const Navbar = () => {
                     <Image src={"/supraswap.png"} width={40} height={40} alt="uspra" />
                     <h1>SupraFi</h1>
                 </Link>
-                {isConnected ? <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4">
                     <Link href={"/swap"}>Swap</Link>
                     <Link href={"/faucet"}>Faucet</Link>
-                    <HistoryModal />
-                    <UserProfileNav />
-                </div> : <ConnectWalletButton />}
+                    {isConnected ?
+                        <div className="flex ">
+                            <HistoryModal />
+                            <UserProfileNav />
+                        </div>
+                        : <ConnectWalletButton />}
+                </div>
             </div>
         </div>
     )
