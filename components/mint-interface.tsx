@@ -15,6 +15,7 @@ import Big from "big.js"
 import { Settings2 } from 'lucide-react'
 import { useMemo, useState } from "react"
 import { Currency } from "./currency-input"
+import { useMint } from "@/hooks/useMint"
 
 
 export const currencies: Currency[] = [
@@ -86,6 +87,7 @@ export default function MintInterface() {
     const [buyCurrency, setBuyCurrency] = useState<Currency>(currencies[0]);
     const [sellValue, setSellValue] = useState<string>("");
     const [buyValue, setBuyValue] = useState<string>("");
+    const {mint, isPending} = useMint(Number(buyValue))
     const buyCurrencies = useMemo(
         () => currencies.filter((currency) => currency.id !== sellCurrency.id),
         [sellCurrency]
@@ -229,8 +231,9 @@ export default function MintInterface() {
                 </div>
                 <Button
                     className="w-full h-14 text-lg font-semibold"
-                    disabled={isSwapDisabled}
-                    onClick={() => {
+                    disabled={isPending}
+                    onClick={async() => {
+                        await mint()
                     }}
                 >
                     Mint
