@@ -14,7 +14,7 @@ export enum COINS {
     THL = "THL",
     SUPRA = "SUPRA"
 }
-export function useFaucet() {
+export function useMint() {
     const { address } = useAccount()
     console.log(
         MODULE_ADDRESS + "::" + "coins" + "::" + COINS.USDT
