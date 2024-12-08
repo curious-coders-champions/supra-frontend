@@ -1,11 +1,7 @@
 import React from "react"
 
 import { Button } from "@/components/ui/button"
-<<<<<<< HEAD
-import { BarChart3, Globe, Twitter, MessageCircle, DiscIcon as Discord, CircleDot, AtSign, Copyright, Binary, Contrast } from 'lucide-react'
-=======
-import { AtSign, BarChart3, Binary, CircleDot, Copyright, DiscIcon as Discord, Globe, MessageCircle, Twitter } from 'lucide-react'
->>>>>>> f0418d3 (fix: 🐛 build fixes)
+import { CircleDot, Contrast, Copyright, DiscIcon as Discord, Globe, MessageCircle, Twitter } from 'lucide-react'
 import Link from "next/link"
 
 interface SocialLinkProps {
@@ -63,7 +59,7 @@ export default function SocialLinks() {
           <h2 className="text-xs font-semibold">Exchange</h2>
           <div className="flex flex-wrap gap-4">
             <SocialLink href="https://www.kucoin.com/trade/SUPRA-USDT" icon={<Copyright />} label="Exchange 1" />
-           
+
           </div>
         </section>
       </div>

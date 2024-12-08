@@ -3,6 +3,7 @@
 import {
     Card,
     CardContent,
+    CardDescription,
     CardHeader,
     CardTitle
 } from "@/components/ui/card"
@@ -17,8 +18,7 @@ import {
 } from "@/components/ui/chart"
 import useChartData from "@/hooks/useChartData"
 import usePrice from "@/hooks/usePrice"
-import Big from "big.js"
-import { ArrowUp, ArrowUpRight, MoveUpRight } from "lucide-react"
+import { ArrowUpRight } from "lucide-react"
 
 
 const chartConfig = {
@@ -30,7 +30,7 @@ const chartConfig = {
 
 export function LineChart() {
     const { data } = useChartData()
-    const {data:price} = usePrice()
+    const { data: price } = usePrice()
 
 
     const chartData = data?.prices.map((price: [number, number]) => ({
@@ -41,17 +41,13 @@ export function LineChart() {
     return (
         <Card>
             <CardHeader>
-<<<<<<< HEAD
-            <CardTitle className="font-bold text-4xl">$ {chartData && chartData[chartData?.length - 1]?.price} USD</CardTitle>
-            <CardDescription className="text-green-500">
-            <div className="flex text-base items-center">
-            {Number(price?.change)?.toFixed(3)}
-            <ArrowUpRight />
-            </div>
-            </CardDescription>
-=======
                 <CardTitle className="font-bold text-4xl">$ {chartData && chartData[chartData?.length - 1]?.price} USD</CardTitle>
->>>>>>> f0418d3 (fix: 🐛 build fixes)
+                <CardDescription className="text-green-500">
+                    <div className="flex text-base items-center">
+                        {Number(price?.change)?.toFixed(3)}
+                        <ArrowUpRight />
+                    </div>
+                </CardDescription>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig}>
