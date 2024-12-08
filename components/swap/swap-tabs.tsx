@@ -125,7 +125,7 @@ export function SwapCard() {
         />
         <CardFooter>
 
-            <SwapButton />
+            <SwapButton amount={0} />
         </CardFooter>
     </Card>
 }

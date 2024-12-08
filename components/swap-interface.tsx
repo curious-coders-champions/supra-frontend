@@ -134,8 +134,6 @@ export default function SwapInterface() {
         setBuyValue("")
     }
 
-    const isSwapDisabled = !sellValue || !buyValue || sellValue === "0" || buyValue === "0"
-
     return (
         <Card className="w-full max-w-md mt-6">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

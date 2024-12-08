@@ -81,7 +81,7 @@ export const currencies: Currency[] = [
 export default function FaucetInterface() {
     const [coin, setCoin] = useState<COINS>(COINS.SUPRA)
     const [amount, setAmount] = useState<string>("")
-    const { swap, isPending } = useFaucet()
+    const {  isPending } = useFaucet()
     const handleFromAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAmount(e.target.value)
     }
@@ -141,7 +141,6 @@ export default function FaucetInterface() {
                         try {
                             toast.dismiss()
                             toast.loading('Minting...')
-                            await swap(COINS.SUPRA)
                             toast.dismiss()
                             toast.success('Minted!')
                         } catch {
