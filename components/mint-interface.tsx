@@ -83,8 +83,8 @@ export const currencies: Currency[] = [
 export default function MintInterface() {
     const { data } = usePrice()
     const supraPrice = data?.usd
-    const sellCurrency = currencies[1]
-    const [buyCurrency, setBuyCurrency] = useState<Currency>(currencies[0]);
+    const sellCurrency = currencies[0]
+    const [buyCurrency, setBuyCurrency] = useState<Currency>(currencies[1]);
     const [sellValue, setSellValue] = useState<string>("");
     const [buyValue, setBuyValue] = useState<string>("");
     const {mint, isPending} = useMint(Number(buyValue))
