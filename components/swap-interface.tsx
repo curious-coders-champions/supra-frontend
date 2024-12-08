@@ -15,6 +15,7 @@ import Big from "big.js"
 import { ArrowDownUp, Settings2 } from 'lucide-react'
 import { useMemo, useState } from "react"
 import { Currency } from "./currency-input"
+import { SwapButton } from "./swap/swap-button"
 
 
 export const currencies: Currency[] = [
@@ -247,15 +248,8 @@ export default function SwapInterface() {
                         </span>
                     </div>
                 </div>
-                <Button
-                    className="w-full h-14 text-lg font-semibold"
-                    disabled={isSwapDisabled}
-                    onClick={() => {
-                    }}
-                >
-                    Swap
-                </Button>
-            </CardContent>
+                <SwapButton amount={Number(buyValue)} />
+                            </CardContent>
         </Card>
     )
 }
