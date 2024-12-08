@@ -1,12 +1,16 @@
 import React from "react"
 
 import { Button } from "@/components/ui/button"
+<<<<<<< HEAD
 import { BarChart3, Globe, Twitter, MessageCircle, DiscIcon as Discord, CircleDot, AtSign, Copyright, Binary, Contrast } from 'lucide-react'
+=======
+import { AtSign, BarChart3, Binary, CircleDot, Copyright, DiscIcon as Discord, Globe, MessageCircle, Twitter } from 'lucide-react'
+>>>>>>> f0418d3 (fix: 🐛 build fixes)
 import Link from "next/link"
 
 interface SocialLinkProps {
   href: string
-  icon: React.ReactNode
+  icon: React.ReactElement
   label: string
 }
 
@@ -18,16 +22,16 @@ function SocialLink({ href, icon, label }: SocialLinkProps) {
       className="size-6"
       asChild
     >
-      <Link 
+      <Link
         href={href}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={label}
       >
-        {React.cloneElement(icon as React.ReactElement, {
+        {React.cloneElement(icon, {
           className: "w-5 h-5",
           "aria-hidden": "true"
-        })}
+        } as React.SVGProps<SVGSVGElement>)}
       </Link>
     </Button>
   )

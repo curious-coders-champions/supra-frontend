@@ -11,14 +11,10 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { COINS, useFaucet } from "@/hooks/useFaucet"
-import usePrice from "@/hooks/usePrice"
 import { Settings2 } from 'lucide-react'
 import { useState } from "react"
 import toast from "react-hot-toast"
 import { Currency } from "./currency-input"
-
-type SwapDirection = "buy" | "sell"
-
 
 export const currencies: Currency[] = [
     {
@@ -83,8 +79,6 @@ export const currencies: Currency[] = [
 ];
 
 export default function FaucetInterface() {
-    const { data } = usePrice()
-    const supraPrice = data?.usd
     const [coin, setCoin] = useState<COINS>(COINS.SUPRA)
     const [amount, setAmount] = useState<string>("")
     const { swap, isPending } = useFaucet()
@@ -150,7 +144,7 @@ export default function FaucetInterface() {
                             await swap(COINS.SUPRA)
                             toast.dismiss()
                             toast.success('Minted!')
-                        } catch (error) {
+                        } catch {
                             toast.dismiss()
                             toast.error('Error minting')
                         }

@@ -16,8 +16,6 @@ import { ArrowDownUp, Settings2 } from 'lucide-react'
 import { useMemo, useState } from "react"
 import { Currency } from "./currency-input"
 
-type SwapDirection = "buy" | "sell"
-
 
 export const currencies: Currency[] = [
     {

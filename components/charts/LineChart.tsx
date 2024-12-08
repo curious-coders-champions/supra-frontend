@@ -3,7 +3,6 @@
 import {
     Card,
     CardContent,
-    CardDescription,
     CardHeader,
     CardTitle
 } from "@/components/ui/card"
@@ -42,6 +41,7 @@ export function LineChart() {
     return (
         <Card>
             <CardHeader>
+<<<<<<< HEAD
             <CardTitle className="font-bold text-4xl">$ {chartData && chartData[chartData?.length - 1]?.price} USD</CardTitle>
             <CardDescription className="text-green-500">
             <div className="flex text-base items-center">
@@ -49,6 +49,9 @@ export function LineChart() {
             <ArrowUpRight />
             </div>
             </CardDescription>
+=======
+                <CardTitle className="font-bold text-4xl">$ {chartData && chartData[chartData?.length - 1]?.price} USD</CardTitle>
+>>>>>>> f0418d3 (fix: 🐛 build fixes)
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig}>

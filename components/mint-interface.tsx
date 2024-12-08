@@ -16,8 +16,6 @@ import { Settings2 } from 'lucide-react'
 import { useMemo, useState } from "react"
 import { Currency } from "./currency-input"
 
-type SwapDirection = "buy" | "sell"
-
 
 export const currencies: Currency[] = [
     {
@@ -84,7 +82,7 @@ export const currencies: Currency[] = [
 export default function MintInterface() {
     const { data } = usePrice()
     const supraPrice = data?.usd
-    const [sellCurrency, setSellCurrency] = useState<Currency>(currencies[0]);
+    const sellCurrency = currencies[0]
     const [buyCurrency, setBuyCurrency] = useState<Currency>(currencies[1]);
     const [sellValue, setSellValue] = useState<string>("");
     const [buyValue, setBuyValue] = useState<string>("");
@@ -125,13 +123,6 @@ export default function MintInterface() {
         } else {
             setSellValue("")
         }
-    }
-
-    const handleSwap = () => {
-        setBuyCurrency(sellCurrency)
-        setSellCurrency(buyCurrency)
-        setSellValue("")
-        setBuyValue("")
     }
 
     const isSwapDisabled = !sellValue || !buyValue || sellValue === "0" || buyValue === "0"
