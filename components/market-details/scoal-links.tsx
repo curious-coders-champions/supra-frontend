@@ -1,7 +1,7 @@
 import React from "react"
 
 import { Button } from "@/components/ui/button"
-import { BarChart3, Globe, Twitter, MessageCircle, DiscIcon as Discord, CircleDot, AtSign, Copyright, Binary } from 'lucide-react'
+import { BarChart3, Globe, Twitter, MessageCircle, DiscIcon as Discord, CircleDot, AtSign, Copyright, Binary, Contrast } from 'lucide-react'
 import Link from "next/link"
 
 interface SocialLinkProps {
@@ -40,27 +40,26 @@ export default function SocialLinks() {
         <section className="flex flex-col gap-y-2">
           <h2 className="text-xs font-semibold">Official links</h2>
           <div className="flex flex-wrap gap-4">
-            <SocialLink href="https://analytics.example.com" icon={<BarChart3 />} label="Analytics" />
-            <SocialLink href="https://example.com" icon={<Globe />} label="Website" />
-            <SocialLink href="https://twitter.com/example" icon={<Twitter />} label="Twitter" />
-            <SocialLink href="https://t.me/example" icon={<MessageCircle />} label="Telegram" />
-            <SocialLink href="https://discord.gg/example" icon={<Discord />} label="Discord" />
+            <SocialLink href="https://testnet.suprascan.io/address/0x2b0f67c4e38106cb2eed8c55d99d75c233d539f6ed5f961489c059d99aad4f7c" icon={<Contrast />} label="Analytics" />
+            <SocialLink href="https://supra.com/" icon={<Globe />} label="Website" />
+            <SocialLink href="https://x.com/SUPRA_Labs" icon={<Twitter />} label="Twitter" />
+            <SocialLink href="https://t.me/SupraOracles" icon={<MessageCircle />} label="Telegram" />
+            <SocialLink href="https://discord.com/invite/supralabs" icon={<Discord />} label="Discord" />
           </div>
         </section>
 
         <section className="flex flex-col gap-y-2">
           <h2 className="text-xs font-semibold ">Trackers</h2>
           <div className="flex flex-wrap gap-4">
-            <SocialLink href="https://tracker1.example.com" icon={<CircleDot />} label="Tracker 1" />
-            <SocialLink href="https://tracker2.example.com" icon={<AtSign />} label="Tracker 2" />
+            <SocialLink href="https://www.coingecko.com/en/coins/supra" icon={<CircleDot />} label="Coingeko " />
           </div>
         </section>
 
         <section className="flex flex-col gap-y-2">
           <h2 className="text-xs font-semibold">Exchange</h2>
           <div className="flex flex-wrap gap-4">
-            <SocialLink href="https://exchange1.example.com" icon={<Copyright />} label="Exchange 1" />
-            <SocialLink href="https://exchange2.example.com" icon={<Binary />} label="Exchange 2" />
+            <SocialLink href="https://www.kucoin.com/trade/SUPRA-USDT" icon={<Copyright />} label="Exchange 1" />
+           
           </div>
         </section>
       </div>
